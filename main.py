@@ -34,7 +34,6 @@ class menu_depart(Tk):
 		self.destroy()
 
 class marqueur(Tk):
-
 	G = 0
 	N = 0
 	B = 0
@@ -159,38 +158,34 @@ class marqueur(Tk):
 		else: self.equipedehors = None
 
 	def fauteN(self):
-		#self.clignotement("Noir")
-		self.G = self.G + 1
-		self.B = self.B + 1
-		self.Gn.set(self.G)
-		self.Bn.set(self.B)
-		self.comparaison()
+		if askyesno ('Confirmation', 'Faute aux noirs ?'):
+			self.G = self.G + 1
+			self.B = self.B + 1
+			self.Gn.set(self.G)
+			self.Bn.set(self.B)
+			self.comparaison()
 
 
 	def fauteB(self):
-		self.G = self.G + 1
-		self.N = self.N + 1
-		self.Gn.set(self.G)
-		self.Nn.set(self.N)
-		self.comparaison()
+		if askyesno('Confirmation', 'Faute aux bleus ?'):
+			self.G = self.G + 1
+			self.N = self.N + 1
+			self.Gn.set(self.G)
+			self.Nn.set(self.N)
+			self.comparaison()
 
 	def fauteG(self):
-		self.B = self.B + 1
-		self.N = self.N + 1
-		self.Nn.set(self.N)
-		self.Bn.set(self.B)
-		self.comparaison()
+		if askyesno('Confirmation', 'Faute aux gris ?'):
+			self.B = self.B + 1
+			self.N = self.N + 1
+			self.Nn.set(self.N)
+			self.Bn.set(self.B)
+			self.comparaison()		
 
-	# def clignotement(self, couleur):
-	# 	global label_status
-	# 	if (label_status == 'place'):
-	# 		self.labelnoir.grid_forget()
-	# 		label_status = 'not_place'
-	# 	elif (label_status == 'not_place'):
-	# 		self.labelnoir.grid(column = 3, row = 0)
-	# 		label_status = 'place'
-	# 	window.after(100, clignotement)
-		
+	# def points(self, equipe1, equipe2):
+	# 	self.equipe1 = self.equipe1 + 1
+	# 	self.equipe2 = self.equipe2 + 1
+
 	def pleinecran(self):
 		self.attributes('-fullscreen', 1)
 
