@@ -4,25 +4,51 @@
 from Tkinter import *
 from tkMessageBox import *
 
+class menu_selection_equipe(Tk):
+	def __init__(self):
+		Tk.__init__(self)
+		self.grid()
+		self.title("Sélection équipes")
+
+		LabelEquipe1 = Label(self, text="Nom de l'équipe bleu")
+		LabelEquipe1.grid(row=0, column=0)
+		LabelEquipe2 = Label(self, text="Nom de l'équipe grise")
+		LabelEquipe2.grid(row=0, column=1)
+		LabelEquipe3 = Label(self, text="Nom de l'équipe noire")
+		LabelEquipe3.grid(row=0, column=2)
+		EntreeBleu = Entry(self)
+		EntreeBleu.grid(row=1, column=0)
+		EntreeGris = Entry(self)
+		EntreeGris.grid(row=1, column=1)
+		EntreeNoir = Entry(self)
+		EntreeNoir.grid(row=1, column=2)
+
+		BoutonOk = Button(self, text = "Ok", command=lambda: self.close(EntreeBleu.get(), EntreeGris.get(), EntreeNoir.get()))
+		BoutonOk.grid(row=2, column=2)
+		self.NomBleu = ""
+
+	def close(self, B, G, N):
+		global Equipes
+		Equipes = [B,G,N]
+		self.destroy()
 
 class menu_depart(Tk):
-
 	def __init__(self):
 		Tk.__init__(self)
 		self.grid()
 		self.title("Menu Marqueur")
-		# logo = PhotoImage(file = "KBM.gif")
-		# CanvasLogo = Canvas(self, width = logo.width(), height = logo.height())
-		# CanvasLogo.create_image(0,0, anchor = NW, image = logo)
-		#CanvasLogo.grid(row = 0, column = 0)
+		logo = self._logo = PhotoImage(file = "KBM.gif")
+		CanvasLogo = Canvas(self, width = logo.width(), height = logo.height())
+		CanvasLogo.create_image(0,0, anchor = NW, image = logo)
+		CanvasLogo.grid(row = 0, column = 1)
 
 		Bouton_simple = Button(self, text="Mode match simple",command=self.run_simple)
 		Bouton_simple_o = Button(self, text="Mode match simple officiel", command=self.run_simple_off)
 		Bouton_quitter = Button(self, text="Quitter", command=quit)
 
-		Bouton_simple.grid(row = 0, column = 0)
-		Bouton_simple_o.grid(row = 0, column = 1)
-		Bouton_quitter.grid(row=0, column = 2)
+		Bouton_simple.grid(row = 1, column = 0)
+		Bouton_simple_o.grid(row = 1, column = 1)
+		Bouton_quitter.grid(row=1, column = 2)
 
 	def run_simple(self):
 		global choix
@@ -47,9 +73,13 @@ class marqueur(Tk):
 		self.title(nom)
 		self.grid()
 
+		global Equipes
 		self.Gn = IntVar()
 		self.Nn = IntVar()
 		self.Bn = IntVar()
+		self.EquipeBleu = StringVar()
+		self.EquipeGris = StringVar()
+		self.EquipeNoir = StringVar()
 
 		self.rowconfigure(0, weight=1)
 
@@ -63,9 +93,19 @@ class marqueur(Tk):
 		CanvasNoir.grid(row = 0, column = 3, sticky="nsew") 
 		self.columnconfigure(3, weight=1)
 
-		# nombleu = Label(self, text="Kin-Ball Montalbanais", bg = 'blue')
-		# nombleu.configure(font="-size 20")
-		# nombleu.grid(column = 1, row = 0, sticky="n")
+		if choix == 2:
+			self.EquipeBleu.set(Equipes[0])
+			self.EquipeGris.set(Equipes[1])
+			self.EquipeNoir.set(Equipes[2])
+			nombleu = Label(self, textvariable=self.EquipeBleu, bg = 'blue')
+			nombleu.configure(font="-size 50")
+			nombleu.grid(column = 1, row = 0, sticky="n")
+			nomgris = Label(self, textvariable=self.EquipeGris, bg = 'grey')
+			nomgris.configure(font="-size 50")
+			nomgris.grid(column = 2, row = 0, sticky="n")
+			nomnoir = Label(self, textvariable=self.EquipeNoir, bg = 'black', fg = 'white')
+			nomnoir.configure(font="-size 50")
+			nomnoir.grid(column = 3, row = 0, sticky="n")
 
 		labelbleu = Label(self, textvariable=self.Bn, bg = 'blue')
 		labelbleu.configure(font=self.chainetaille)
@@ -205,8 +245,6 @@ class marqueur(Tk):
 	def credit(self):
 		showinfo('Crédits', 'Thomas VIGROUX (Kin-Ball Montalbanais, KBM)')
 
-
-		
 if __name__ == '__main__':
 	menu = menu_depart()
 	menu.mainloop()
@@ -214,6 +252,9 @@ if __name__ == '__main__':
 		marqueur = marqueur("Match simple")
 		marqueur.mainloop()
 	elif choix == 2:
+		selection = menu_selection_equipe()
+		selection.mainloop()
+		print Equipes[0], Equipes[1], Equipes[2]
 		marqueur = marqueur("Match simple officiel")
 		marqueur.mainloop()
 
