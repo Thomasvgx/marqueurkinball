@@ -54,6 +54,7 @@ class menu_depart(Tk):
 		global choix
 		choix = 1
 		self.destroy()
+
 	def run_simple_off(self):
 		global choix
 		choix = 2
@@ -151,7 +152,7 @@ class marqueur(Tk):
 
 		## Fin Barre de menu
 
-	def comparaison(self): # utiliser tableau pour faciliter
+	def comparaison(self):
 		
 		if self.equipedehors != None:
 			if self.equipedehors == 'N':
@@ -222,16 +223,11 @@ class marqueur(Tk):
 			self.Bn.set(self.B)
 			self.comparaison()		
 
-	# def points(self, equipe1, equipe2):
-	# 	self.equipe1 = self.equipe1 + 1
-	# 	self.equipe2 = self.equipe2 + 1
-
 	def pleinecran(self):
 		self.attributes('-fullscreen', 1)
 
 	def quitpleinecran(self):
 		self.attributes('-fullscreen', 0)
-		#self.taille.set(50)
 
 	def remise(self):
 		self.G = 0
@@ -254,8 +250,8 @@ if __name__ == '__main__':
 	elif choix == 2:
 		selection = menu_selection_equipe()
 		selection.mainloop()
-		print Equipes[0], Equipes[1], Equipes[2]
 		marqueur = marqueur("Match simple officiel")
+		marqueur.bind('b', marqueur.fauteB)
 		marqueur.mainloop()
 
 		
