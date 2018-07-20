@@ -75,12 +75,16 @@ class marqueur(Tk):
 		self.grid()
 
 		global Equipes
+		global Historique
 		self.Gn = IntVar()
 		self.Nn = IntVar()
 		self.Bn = IntVar()
 		self.EquipeBleu = StringVar()
 		self.EquipeGris = StringVar()
 		self.EquipeNoir = StringVar()
+		
+		with open("hist.txt", "a") as Historique:
+			Historique.write("B\tG\tN")
 
 		self.rowconfigure(0, weight=1)
 
@@ -151,16 +155,25 @@ class marqueur(Tk):
 		self.config(menu=BarreMenu)
 
 		## Fin Barre de menu
+	
+	def revenir_en_arriere(self):
+		with open("hist.text", "r") as Historique:
+			fileContent = ''.join(self.Historique.readlines()[:-1])
+		with open("hist.txt", "w") as Historique:
+			Historique.write(fileContent)
+
 
 	def comparaison(self):
-		
 		if self.equipedehors != None:
 			if self.equipedehors == 'N':
 				self.Nn.set(0)
+				self.N = 0
 			elif self.equipedehors == 'G':
 				self.Gn.set(0)
+				self.G = 0
 			elif self.equipedehors == 'B':
 				self.Bn.set(0)
+				self.B = 0
 		else:
 			if (self.Gn.get() == 11):
 				if (self.Bn.get() > self.Nn.get()):
@@ -192,10 +205,16 @@ class marqueur(Tk):
 			self.equipedehors = couleur[0]
 			if self.equipedehors == 'N':
 				self.Nn.set(0)
+				self.N = 0
+				BoutonNoir = Button(self, text = "Faute aux Noirs", state = "disabled").grid(row=2,column=3)
 			elif self.equipedehors == 'G':
 				self.Gn.set(0)
+				self.G = 0
+				BoutonGris = Button(self, text = "Faute aux Gris", state = "disabled").grid(row=2, column=2)
 			elif self.equipedehors == 'B':
 				self.Bn.set(0)
+				self.B = 0
+				BoutonBleu = Button(self, text = "Faute aux Bleus", state = "disabled").grid(row=2, column=1)
 		else: self.equipedehors = None
 
 	def fauteN(self):
@@ -205,7 +224,8 @@ class marqueur(Tk):
 			self.Gn.set(self.G)
 			self.Bn.set(self.B)
 			self.comparaison()
-
+			with open("hist.txt", "a") as Historique:
+				Historique.write("\n"+str(self.B)+"\t"+str(self.G)+"\t"+str(self.N))
 
 	def fauteB(self):
 		if askyesno('Confirmation', 'Faute aux bleus ?'):
@@ -214,6 +234,8 @@ class marqueur(Tk):
 			self.Gn.set(self.G)
 			self.Nn.set(self.N)
 			self.comparaison()
+			with open("hist.txt", "a") as Historique:
+				Historique.write("\n"+str(self.B)+"\t"+str(self.G)+"\t"+str(self.N))
 
 	def fauteG(self):
 		if askyesno('Confirmation', 'Faute aux gris ?'):
@@ -221,7 +243,9 @@ class marqueur(Tk):
 			self.N = self.N + 1
 			self.Nn.set(self.N)
 			self.Bn.set(self.B)
-			self.comparaison()		
+			self.comparaison()
+			with open("hist.txt", "a") as Historique:
+				Historique.write("\n"+str(self.B)+"\t"+str(self.G)+"\t"+str(self.N))
 
 	def pleinecran(self):
 		self.attributes('-fullscreen', 1)
@@ -237,6 +261,10 @@ class marqueur(Tk):
 		self.Gn.set(0)
 		self.Nn.set(0)
 		self.equipedehors = None
+		BoutonBleu = Button(self, text="Faute aux Bleus", command = self.fauteB).grid(row=2,column=1)
+		BoutonGris = Button(self, text="Faute aux Gris", command = self.fauteG).grid(row=2,column=2)
+		BoutonNoir = Button(self, text="Faute aux Noirs", command = self.fauteN).grid(row=2,column=3)
+
 
 	def credit(self):
 		showinfo('Crédits', 'Thomas VIGROUX (Kin-Ball Montalbanais, KBM)')
