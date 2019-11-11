@@ -6,4 +6,4 @@ Fonctionnalités :
 
 - Affichage des scores des 3 équipes bleu, noir, gris
 - Remise à zéro des scores
-- Fonctionnalité équipe qui sort à 11 points
+- Gestion équipe qui sort à 11 points
