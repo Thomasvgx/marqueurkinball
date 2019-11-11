@@ -52,9 +52,9 @@ class menu_depart(Tk):
 		#Bouton_simple_o = Button(self, text="Mode match simple officiel", command=self.run_simple_off)
 		Bouton_quitter = Button(self, text="Quitter", command=quit)
 
-		Bouton_simple.grid(row = 1, column = 0)
+		Bouton_simple.grid(row = 1, column = 0, sticky = W)
 		#Bouton_simple_o.grid(row = 1, column = 1)
-		Bouton_quitter.grid(row=1, column = 0)
+		Bouton_quitter.grid(row=1, column = 0, sticky = E)
 
 	def run_simple(self):
 	 	global choix
