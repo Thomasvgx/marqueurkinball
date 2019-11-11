@@ -1,3 +1,7 @@
+# Project
+hist.txt
+HistoryFile.data
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
