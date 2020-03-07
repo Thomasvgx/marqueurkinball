@@ -7,7 +7,9 @@ class marqueur(Tk):
     B = 0
     equipedehors = None
     taille = 220
+    sizeSet = 100
     chainetaille = "-size " + str(taille)
+    sizeStringSet = "-size " + str(sizeSet)
 
     def __init__(self, nom, data):
         Tk.__init__(self)
@@ -38,19 +40,20 @@ class marqueur(Tk):
 
         # Affichage du nom des équipes
 
-        if data.choix == 1:
-            self.EquipeBleu.set(data.nameBlueTeam)
-            self.EquipeGris.set(data.nameGreyTeam)
-            self.EquipeNoir.set(data.nameBlackTeam)
-            nombleu = Label(self, textvariable=self.EquipeBleu, bg = 'blue')
-            nombleu.configure(font="-size 50")
-            nombleu.grid(column = 1, row = 0, sticky="n")
-            nomgris = Label(self, textvariable=self.EquipeGris, bg = 'grey')
-            nomgris.configure(font="-size 50")
-            nomgris.grid(column = 2, row = 0, sticky="n")
-            nomnoir = Label(self, textvariable=self.EquipeNoir, bg = 'black', fg = 'white')
-            nomnoir.configure(font="-size 50")
-            nomnoir.grid(column = 3, row = 0, sticky="n")
+        self.EquipeBleu.set(data.nameBlueTeam)
+        self.EquipeGris.set(data.nameGreyTeam)
+        self.EquipeNoir.set(data.nameBlackTeam)
+        nombleu = Label(self, textvariable=self.EquipeBleu, bg = 'blue')
+        nombleu.configure(font="-size 50")
+        nombleu.grid(column = 1, row = 0, sticky="n")
+        nomgris = Label(self, textvariable=self.EquipeGris, bg = 'grey')
+        nomgris.configure(font="-size 50")
+        nomgris.grid(column = 2, row = 0, sticky="n")
+        nomnoir = Label(self, textvariable=self.EquipeNoir, bg = 'black', fg = 'white')
+        nomnoir.configure(font="-size 50")
+        nomnoir.grid(column = 3, row = 0, sticky="n")
+
+        # Affichage du score
 
         labelbleu = Label(self, textvariable=self.Bn, bg = 'blue')
         labelbleu.configure(font=self.chainetaille)
@@ -64,6 +67,17 @@ class marqueur(Tk):
         labelnoir = Label(self, textvariable=self.Nn, bg = 'black', fg = 'white')
         labelnoir.configure(font=self.chainetaille)
         labelnoir.grid(column = 3, row = 0)
+
+        # # Affichage des sets
+
+        # labelSetBlue = Label(self, textvariable=self.setBlue, bg = 'blue')
+        # labelSetBlue.configure(font=self.sizeStringSet)
+        
+        # labelSetGrey = Label(self, textvariable=self.setGrey, bg= 'grey')
+        # labelSetGrey.configure(font=self.sizeStringSet)
+
+        # labelSetBlack = Label(self, textvariable=self.setBlack, bg = 'black', fg = 'white')
+        # labelSetBlack.configure(font=self.sizeStringSet)
 
         BoutonBleu = Button(self, text="Faute aux Bleus", command = self.fauteB).grid(row=2,column=1)
         BoutonGris = Button(self, text="Faute aux Gris", command = self.fauteG).grid(row=2,column=2)

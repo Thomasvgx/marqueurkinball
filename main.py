@@ -13,9 +13,8 @@ if __name__ == '__main__':
     menu = menu_depart(data)
     menu.mainloop()
 
-    if data.choix == 1:
-        selectTeam = menu_selection_equipe(data)
-        selectTeam.mainloop()
-        mainMarqueur = marqueur("Match simple", data)
-        # mainMarqueur.bind("<KeyPress-g>", mainMarqueur.fauteG)
-        mainMarqueur.mainloop()
+    selectTeam = menu_selection_equipe(data)
+    selectTeam.mainloop()
+    mainMarqueur = marqueur("Match", data)
+    # mainMarqueur.bind("<KeyPress-g>", mainMarqueur.fauteG)
+    mainMarqueur.mainloop()

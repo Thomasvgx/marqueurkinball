@@ -16,16 +16,15 @@ class menu_depart(Tk):
         CanvasLogo.create_image(0,0, anchor = NW, image = logo)
         CanvasLogo.grid(row = 0, column = 0)
 
-        Bouton_simple = Button(self, text="Mode match simple",command=lambda : self.run_simple(data))
-        #Bouton_simple_o = Button(self, text="Mode match simple officiel", command=self.run_simple_off)
+        Bouton_simple = Button(self, text="Mode match simple", command=lambda : self.run_simple(data))
+        # Bouton_sets = Button(self, text="Mode match sets", command=lambda : self.run_sets(data))
         Bouton_quitter = Button(self, text="Quitter", command=quit)
 
         Bouton_simple.grid(row = 1, column = 0, sticky = W)
-        #Bouton_simple_o.grid(row = 1, column = 1)
+        # Bouton_sets.grid(row = 1, column = 1)
         Bouton_quitter.grid(row=1, column = 0, sticky = E)
 
     def run_simple(self, data):
-        # global choix
         data.choix = 1
         self.destroy()
 
@@ -50,7 +49,6 @@ class menu_selection_equipe(Tk):
 
         BoutonOk = Button(self, text = "Ok", command=lambda: self.close(EntreeBleu.get(), EntreeGris.get(), EntreeNoir.get(), data))
         BoutonOk.grid(row=2, column=2)
-        # self.NomBleu = ""
 
     def close(self, B, G, N, data):
         data.nameBlueTeam = B
