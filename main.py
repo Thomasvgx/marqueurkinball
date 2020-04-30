@@ -10,11 +10,10 @@ from data.managedata import dataManager
 
 if __name__ == '__main__':
     data = dataManager()
-    menu = menu_depart(data)
-    menu.mainloop()
+    # menu = menu_depart(data)
+    # menu.mainloop()
 
     selectTeam = menu_selection_equipe(data)
     selectTeam.mainloop()
     mainMarqueur = marqueur("Match", data)
-    # mainMarqueur.bind("<KeyPress-g>", mainMarqueur.fauteG)
     mainMarqueur.mainloop()

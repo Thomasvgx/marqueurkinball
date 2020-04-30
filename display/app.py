@@ -20,12 +20,16 @@ class marqueur(Tk):
         self.Gn = IntVar()
         self.Nn = IntVar()
         self.Bn = IntVar()
+        self.nbSetG = IntVar()
+        self.nbSetN = IntVar()
+        self.nbSetB = IntVar()
         self.EquipeBleu = StringVar()
         self.EquipeGris = StringVar()
         self.EquipeNoir = StringVar()
         self.i = 0
-        self.Hist = []
-        self.HistoryFile = open("HistoryFile.data", "w")
+        self.histB = [0]
+        self.histG = [0]
+        self.histN = [0]
         self.rowconfigure(0, weight=1)
 
         CanvasBleu = Canvas(self, width = 300, height = 600, background = 'blue')
@@ -97,26 +101,32 @@ class marqueur(Tk):
         affichage.add_command(label="Plein écran ..", command = self.pleinecran)
         affichage.add_command(label="Quitter plein écran ..", command = self.quitpleinecran)
 
-        aide = Menu(BarreMenu, tearoff = 0)
-        aide.add_command(label="Aide en ligne")
-        aide.add_separator()
-        aide.add_command(label="Crédits", command = self.credit)
+        # aide = Menu(BarreMenu, tearoff = 0)
+        # aide.add_command(label="Aide en ligne")
+        # aide.add_separator()
+        # aide.add_command(label="Crédits", command = self.credit)
 
         # BarreMenu.add_cascade(label = "Fichier", menu = fichier)
         BarreMenu.add_command(label = "Précédent ..", command = self.revenir_en_arriere)
         BarreMenu.add_command(label="Remise à zéro..", command = self.remise)
         BarreMenu.add_cascade(label = "Affichage", menu = affichage)
-        BarreMenu.add_cascade(label = "Aide", menu = aide) 
+        BarreMenu.add_command(label = "Crédits", command = self.credit) 
         self.config(menu=BarreMenu)
         self.bind("<KeyPress-g>", self.fauteG)
 
     # Méthode pour revenir à l'état précédent
 
     def revenir_en_arriere(self):
-        self.Hist = self.Hist[:-1]
-        self.B = self.Hist[len(self.Hist)-1][0]
-        self.G = self.Hist[len(self.Hist)-1][1]
-        self.N = self.Hist[len(self.Hist)-1][2]
+        # à refaire / pas élégant
+        if len(self.histB) > 1:
+            self.histB.pop()
+        if len(self.histG) > 1:
+            self.histG.pop()
+        if len(self.histN) > 1:
+            self.histN.pop()
+        self.B = self.histB[len(self.histB) - 1]
+        self.G = self.histG[len(self.histG) - 1]
+        self.N = self.histN[len(self.histN) - 1]
         self.Bn.set(self.B)
         self.Gn.set(self.G)
         self.Nn.set(self.N)
@@ -158,9 +168,11 @@ class marqueur(Tk):
                 else:
                     self.sortie('Gris')
                     return
-        self.Hist.append([self.B, self.G, self.N])
+        self.histB.append(self.B)
+        self.histG.append(self.G)
+        self.histN.append(self.N)
 
-    # Méthode qui gère le moment où une équipe doit sortir
+    # method to determine if teams have to quit
 
     def sortie(self, couleur):
         print (couleur)
@@ -179,8 +191,6 @@ class marqueur(Tk):
                 #self.B = 0
                 BoutonBleu = Button(self, text = "Faute aux Bleus", state = "disabled").grid(row=2, column=1)
         else: self.equipedehors = None
-
-    # Les 3 méthodes faute gèrent les points après une faute
 
     def fauteN(self):
         if messagebox.askyesno ('Confirmation', 'Faute aux noirs ?'):
@@ -207,17 +217,11 @@ class marqueur(Tk):
             self.Bn.set(self.B)
             self.comparaison()
 
-    # def write_history(self):
-    #	#self.HistoryFile.write("%d\t%d\t%d", self.B, self.G, self.N)
-    #	self.HistoryFile.write("%d", self.N)
-
     def pleinecran(self):
         self.attributes('-fullscreen', 1)
 
     def quitpleinecran(self):
         self.attributes('-fullscreen', 0)
-
-    # Méthode pour la remise à 0
 
     def remise(self):
         self.G = 0
@@ -230,7 +234,10 @@ class marqueur(Tk):
         BoutonBleu = Button(self, text="Faute aux Bleus", command = self.fauteB).grid(row=2,column=1)
         BoutonGris = Button(self, text="Faute aux Gris", command = self.fauteG).grid(row=2,column=2)
         BoutonNoir = Button(self, text="Faute aux Noirs", command = self.fauteN).grid(row=2,column=3)
-        self.Hist = []
+        self.histB = [0] # list blue
+        self.histG = [0]
+        self.histN = [0]
+
 
     def credit(self):
         messagebox.showinfo('Crédits', 'Thomas VIGROUX (Kin-Ball Montalbanais, KBM)')
