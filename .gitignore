@@ -2,6 +2,9 @@
 hist.txt
 HistoryFile.data
 .vscode/
+long_main.py
+setup.py
+build/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
