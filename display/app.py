@@ -84,8 +84,11 @@ class marqueur(Tk):
         # labelSetBlack.configure(font=self.sizeStringSet)
 
         BoutonBleu = Button(self, text="Faute aux Bleus", command = self.fauteB).grid(row=2,column=1)
+        self.bind('<b>', lambda b : self.fauteB())
         BoutonGris = Button(self, text="Faute aux Gris", command = self.fauteG).grid(row=2,column=2)
+        self.bind('<g>', lambda g : self.fauteG())
         BoutonNoir = Button(self, text="Faute aux Noirs", command = self.fauteN).grid(row=2,column=3)
+        self.bind('<n>', lambda n : self.fauteN())
 
         # Gestion de la barre des menus
 
@@ -112,7 +115,6 @@ class marqueur(Tk):
         BarreMenu.add_cascade(label = "Affichage", menu = affichage)
         BarreMenu.add_command(label = "Crédits", command = self.credit) 
         self.config(menu=BarreMenu)
-        self.bind("<KeyPress-g>", self.fauteG)
 
     # Méthode pour revenir à l'état précédent
 
