@@ -115,6 +115,8 @@ class marqueur(Tk):
         BarreMenu.add_cascade(label = "Affichage", menu = affichage)
         BarreMenu.add_command(label = "Crédits", command = self.credit) 
         self.config(menu=BarreMenu)
+        
+        self.bind('<BackSpace>', lambda back : self.revenir_en_arriere())
 
     # Méthode pour revenir à l'état précédent
 
