@@ -48,6 +48,7 @@ class menu_selection_equipe(Tk):
         EntreeNoir.grid(row=1, column=2)
 
         BoutonOk = Button(self, text = "Ok", command=lambda: self.close(EntreeBleu.get(), EntreeGris.get(), EntreeNoir.get(), data))
+        self.bind('<Return>', lambda event: self.close(EntreeBleu.get(), EntreeGris.get(), EntreeNoir.get(), data))
         BoutonOk.grid(row=2, column=2)
 
     def close(self, B, G, N, data):
