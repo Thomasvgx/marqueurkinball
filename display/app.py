@@ -126,7 +126,8 @@ class marqueur(Tk):
 
         # BarreMenu.add_cascade(label = "Fichier", menu = fichier)
         BarreMenu.add_command(label = "Précédent ..", command = self.revenir_en_arriere)
-        BarreMenu.add_command(label="Remise à zéro..", command = self.remise)
+        BarreMenu.add_command(label="Remise à zéro ..", command = self.remise)
+        BarreMenu.add_command(label="Fin du Set ..", command=self.endMatch)
         BarreMenu.add_cascade(label = "Affichage", menu = affichage)
         BarreMenu.add_command(label = "Crédits", command = self.credit) 
         self.config(menu=BarreMenu)
@@ -235,6 +236,19 @@ class marqueur(Tk):
             self.Nn.set(self.N)
             self.Bn.set(self.B)
             self.comparaison()
+
+    def endMatch(self):
+        dict = {self.G:"G", self.N:"N", self.B:"B"}
+        win = dict.get(max(dict))
+        if win == "G":
+            self.nbSetG.set(self.nbSetG.get() + 1)
+        elif win == "N":
+            self.nbSetN.set(self.nbSetN.get() + 1)
+        elif win == "B":
+            self.nbSetB.set(self.nbSetB.get() + 1)
+        else:
+            messagebox.showerror(message="Erreur")
+        self.remise()
 
     def pleinecran(self):
         self.attributes('-fullscreen', 1)
