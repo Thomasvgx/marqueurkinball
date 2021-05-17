@@ -42,6 +42,17 @@ class marqueur(Tk):
         CanvasNoir.grid(row = 0, column = 3, sticky="nsew") 
         self.columnconfigure(3, weight=1)
 
+        if data.choix == 1:
+            CanvasBleu = Canvas(self, width = 300, height = 100, background = 'blue')
+            CanvasBleu.grid(row = 1, column = 1, sticky="nsew")
+            self.columnconfigure(2, weight=1)
+            CanvasGris = Canvas(self, width = 300, height = 100, background = 'grey')
+            CanvasGris.grid(row = 1, column = 2, sticky="nsew")
+            self.columnconfigure(1, weight=1)
+            CanvasNoir = Canvas(self, width = 300, height = 100, background = 'black')
+            CanvasNoir.grid(row = 1, column = 3, sticky="nsew")
+            self.columnconfigure(3, weight=1)
+
         # Affichage du nom des équipes
 
         self.EquipeBleu.set(data.nameBlueTeam)
@@ -74,20 +85,24 @@ class marqueur(Tk):
 
         # # Affichage des sets
 
-        # labelSetBlue = Label(self, textvariable=self.setBlue, bg = 'blue')
-        # labelSetBlue.configure(font=self.sizeStringSet)
-        
-        # labelSetGrey = Label(self, textvariable=self.setGrey, bg= 'grey')
-        # labelSetGrey.configure(font=self.sizeStringSet)
+        if (data.choix == 1):
+            labelSetBlue = Label(self, textvariable=self.nbSetB, bg = 'blue')
+            labelSetBlue.configure(font=self.sizeStringSet)
+            labelSetBlue.grid(column = 1, row = 1)
+            
+            labelSetGrey = Label(self, textvariable=self.nbSetG, bg= 'grey')
+            labelSetGrey.configure(font=self.sizeStringSet)
+            labelSetGrey.grid(column = 2, row = 1)
 
-        # labelSetBlack = Label(self, textvariable=self.setBlack, bg = 'black', fg = 'white')
-        # labelSetBlack.configure(font=self.sizeStringSet)
+            labelSetBlack = Label(self, textvariable=self.nbSetN, bg = 'black', fg = 'white')
+            labelSetBlack.configure(font=self.sizeStringSet)
+            labelSetBlack.grid(column = 3, row = 1)
 
-        BoutonBleu = Button(self, text="Faute aux Bleus", command = self.fauteB).grid(row=2,column=1)
+        BoutonBleu = Button(self, text="Faute aux Bleus (b)", command = self.fauteB).grid(row=2,column=1)
         self.bind('<b>', lambda b : self.fauteB())
-        BoutonGris = Button(self, text="Faute aux Gris", command = self.fauteG).grid(row=2,column=2)
+        BoutonGris = Button(self, text="Faute aux Gris (g)", command = self.fauteG).grid(row=2,column=2)
         self.bind('<g>', lambda g : self.fauteG())
-        BoutonNoir = Button(self, text="Faute aux Noirs", command = self.fauteN).grid(row=2,column=3)
+        BoutonNoir = Button(self, text="Faute aux Noirs (n)", command = self.fauteN).grid(row=2,column=3)
         self.bind('<n>', lambda n : self.fauteN())
 
         # Gestion de la barre des menus
@@ -185,15 +200,15 @@ class marqueur(Tk):
             if self.equipedehors == 'N':
                 self.Nn.set(0)
                 #self.N = 0
-                BoutonNoir = Button(self, text = "Faute aux Noirs", state = "disabled").grid(row=2,column=3)
+                BoutonNoir = Button(self, text = "Faute aux Noirs (n)", state = "disabled").grid(row=2,column=3)
             elif self.equipedehors == 'G':
                 self.Gn.set(0)
                 #self.G = 0
-                BoutonGris = Button(self, text = "Faute aux Gris", state = "disabled").grid(row=2, column=2)
+                BoutonGris = Button(self, text = "Faute aux Gris (g)", state = "disabled").grid(row=2, column=2)
             elif self.equipedehors == 'B':
                 self.Bn.set(0)
                 #self.B = 0
-                BoutonBleu = Button(self, text = "Faute aux Bleus", state = "disabled").grid(row=2, column=1)
+                BoutonBleu = Button(self, text = "Faute aux Bleus (b)", state = "disabled").grid(row=2, column=1)
         else: self.equipedehors = None
 
     def fauteN(self):
@@ -235,9 +250,9 @@ class marqueur(Tk):
         self.Gn.set(0)
         self.Nn.set(0)
         self.equipedehors = None
-        BoutonBleu = Button(self, text="Faute aux Bleus", command = self.fauteB).grid(row=2,column=1)
-        BoutonGris = Button(self, text="Faute aux Gris", command = self.fauteG).grid(row=2,column=2)
-        BoutonNoir = Button(self, text="Faute aux Noirs", command = self.fauteN).grid(row=2,column=3)
+        BoutonBleu = Button(self, text="Faute aux Bleus (b)", command = self.fauteB).grid(row=2,column=1)
+        BoutonGris = Button(self, text="Faute aux Gris (g)", command = self.fauteG).grid(row=2,column=2)
+        BoutonNoir = Button(self, text="Faute aux Noirs (n)", command = self.fauteN).grid(row=2,column=3)
         self.histB = [0] # list blue
         self.histG = [0]
         self.histN = [0]

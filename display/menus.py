@@ -50,9 +50,13 @@ class menu_selection_equipe(Tk):
         BoutonOk = Button(self, text = "Ok", command=lambda: self.close(EntreeBleu.get(), EntreeGris.get(), EntreeNoir.get(), data))
         self.bind('<Return>', lambda event: self.close(EntreeBleu.get(), EntreeGris.get(), EntreeNoir.get(), data))
         BoutonOk.grid(row=2, column=2)
+        self.TkSetMode = IntVar()
+        Sets_checkbox = Checkbutton(self, text="Affichage des sets", variable=self.TkSetMode, onvalue=1, offvalue=0)
+        Sets_checkbox.grid(row = 2, column = 1)
 
     def close(self, B, G, N, data):
         data.nameBlueTeam = B
         data.nameGreyTeam = G
         data.nameBlackTeam = N
+        data.choix = self.TkSetMode.get()
         self.destroy()
