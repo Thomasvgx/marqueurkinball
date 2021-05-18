@@ -126,7 +126,7 @@ class marqueur(Tk):
 
         # BarreMenu.add_cascade(label = "Fichier", menu = fichier)
         BarreMenu.add_command(label = "Précédent ..", command = self.revenir_en_arriere)
-        BarreMenu.add_command(label="Remise à zéro ..", command = self.remise)
+        BarreMenu.add_command(label="Remise à zéro ..", command = self.resetMatch)
         BarreMenu.add_command(label="Fin du Set ..", command=self.endMatch)
         BarreMenu.add_cascade(label = "Affichage", menu = affichage)
         BarreMenu.add_command(label = "Crédits", command = self.credit) 
@@ -248,7 +248,7 @@ class marqueur(Tk):
             self.nbSetB.set(self.nbSetB.get() + 1)
         else:
             messagebox.showerror(message="Erreur")
-        self.remise()
+        self.resetScore()
 
     def pleinecran(self):
         self.attributes('-fullscreen', 1)
@@ -256,7 +256,7 @@ class marqueur(Tk):
     def quitpleinecran(self):
         self.attributes('-fullscreen', 0)
 
-    def remise(self):
+    def resetScore(self):
         self.G = 0
         self.N = 0
         self.B = 0
@@ -270,7 +270,15 @@ class marqueur(Tk):
         self.histB = [0] # list blue
         self.histG = [0]
         self.histN = [0]
+    
+    def resetMatch(self):
+        self.resetScore()
+        self.resetSets()
 
+    def resetSets(self):
+        self.nbSetB.set(0)
+        self.nbSetG.set(0)
+        self.nbSetN.set(0)
 
     def credit(self):
         messagebox.showinfo('Crédits', 'Thomas VIGROUX (Kin-Ball Montalbanais, KBM)')
