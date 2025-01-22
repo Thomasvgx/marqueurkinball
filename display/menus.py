@@ -32,7 +32,7 @@ class menu_selection_equipe(Tk):
     def __init__(self, data):
         Tk.__init__(self)
         self.grid()
-        self.title("Sélection équipes")
+        self.title("Sélection équipes (optionnel)")
 
         LabelEquipe1 = Label(self, text="Nom de l'équipe bleu")
         LabelEquipe1.grid(row=0, column=0)

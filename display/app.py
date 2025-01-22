@@ -281,4 +281,4 @@ class marqueur(Tk):
         self.nbSetN.set(0)
 
     def credit(self):
-        messagebox.showinfo('Crédits', 'Thomas VIGROUX (Kin-Ball Montalbanais, KBM)')
+        messagebox.showinfo('Crédits', 'Thomas VIGROUX')
